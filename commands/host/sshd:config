@@ -1,0 +1,24 @@
+#!/bin/bash
+
+## #ddev-generated
+## Description: Configures your local ssh config tu connect to this project. You can add this to a post-start/exec-host hook.
+## Usage: sshd:config
+## Example: ddev sshd:config
+
+port=$(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml port web 22)
+
+config_filename=config.ddev.sshd.$DDEV_PROJECT
+config=$(
+cat <<SSH_CONFIG
+Host $DDEV_PROJECT
+  Hostname localhost
+  Port ${port#*:}
+  StrictHostKeyChecking=no
+SSH_CONFIG
+)
+
+if ! grep -qxF "Include \"$config_filename\"" ~/.ssh/config ; then
+  echo "Include \"$config_filename\"" >> ~/.ssh/config
+fi
+
+echo "$config" > ~/.ssh/$config_filename
