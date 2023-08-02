@@ -15,7 +15,7 @@ Host $DDEV_PROJECT
   Port ${port#*:}
   StrictHostKeyChecking=no
   RequestTTY yes
-  RemoteCommand cd /var/www/html; $SHELL -il
+  RemoteCommand cd /var/www/html; \$SHELL -il
 SSH_CONFIG
 )
 
