@@ -7,7 +7,7 @@
 
 port=$(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml port web 22)
 
-config_filename=config.ddev.sshd.$DDEV_PROJECT
+config_filename=$DDEV_PROJECT
 config=$(
 cat <<SSH_CONFIG
 Host $DDEV_PROJECT
@@ -19,8 +19,9 @@ Host $DDEV_PROJECT
 SSH_CONFIG
 )
 
-if ! grep -qxF "Include \"$config_filename\"" ~/.ssh/config ; then
-  echo "Include \"$config_filename\"" >> ~/.ssh/config
+if ! grep -qxF "Include \"config.ddev.d/$config_filename\"" ~/.ssh/config ; then
+  echo -e "\n# Added by ddev-sshd add-on on $(date -u "+%Y-%m-%d %H:%m") \nInclude \"config.ddev.d/$config_filename\"" >> ~/.ssh/config
 fi
 
-echo "$config" > ~/.ssh/$config_filename
+mkdir -p ~/.ssh/config.ddev.d
+echo "$config" > ~/.ssh/config.ddev.d/$config_filename
