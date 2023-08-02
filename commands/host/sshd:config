@@ -10,7 +10,7 @@ port=$(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml port w
 config_filename=$DDEV_PROJECT
 config=$(
 cat <<SSH_CONFIG
-Host $DDEV_PROJECT
+Host ${DDEV_HOSTNAME%%,*}
   Hostname localhost
   Port ${port#*:}
   StrictHostKeyChecking=no
