@@ -7,7 +7,7 @@
 
 port=$(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml port web 22)
 
-config_filename=config.ddev.sshd.$DDEV_PROJECT
+config_filename=config.sshd.$DDEV_PROJECT
 config=$(
 cat <<SSH_CONFIG
 Host $DDEV_PROJECT
@@ -19,8 +19,22 @@ Host $DDEV_PROJECT
 SSH_CONFIG
 )
 
-if ! grep -qxF "Include \"$config_filename\"" ~/.ssh/config ; then
-  echo "Include \"$config_filename\"" >> ~/.ssh/config
+include=$(
+cat <<SSH_CONFIG_INCLUDE
+# BEGIN: ddev-sshd add-on ssh configurations
+Include "config.ddev.d/*"
+fdakk faj;f afd a;lf a8*
+# END: ddev-sshd add-on ssh configurations
+SSH_CONFIG_INCLUDE
+)
+
+include_grep="# BEGIN: ddev-sshd add-on ssh configurations.*# END: ddev-sshd add-on ssh configurations"
+if ! cat ~/.ssh/config | tr '\n' '\0' | grep -aqe "$include_grep" ; then
+  echo -e "\n$include" >> ~/.ssh/config
 fi
 
-echo "$config" > ~/.ssh/$config_filename
+include_zero=$(echo "$include" | sed 's/*/\\\*/' | sed 's/\//\\\//' | tr '\n' '\a')
+replacedcat ~/.ssh/config | tr '\n' '\0' | sed -e "s/# BEGIN: ddev-sshd add-on ssh configurations.*# END: ddev-sshd add-on ssh configurations/$include_zero/g" | tr '\0' '\n' | tr '\a' '\n'
+
+mkdir -p ~/.ssh/config.ddev.d
+echo "$config" > ~/.ssh/config.ddev.d/$config_filename
