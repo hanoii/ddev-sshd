@@ -4,4 +4,4 @@ project_files:
   - docker-compose.sshd.yaml
   - web-build/Dockerfile.sshd
   - commands/host/sshd:config
-  - homeadditions/.bashrc.d/sshd
+  - homeadditions/.bashrc.sshd

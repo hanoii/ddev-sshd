@@ -1,4 +1,4 @@
 #ddev-generated
-
 # Needed for ssh to run as an extra daemon
+RUN sed -i '1 i 'source ~/.bashrc.sshd' /home/$username/.bashrc
 RUN mkdir /run/sshd
