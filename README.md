@@ -19,8 +19,8 @@ to a post-start hook on your `config.yaml`:
 
 ```yaml
 hooks:
-   post-start:
-      exec-host: ddev sshd:config
+  post-start:
+    exec-host: ddev sshd:config
 ```
 
 **Contributed and maintained by [@hanoii](https://github.com/hanoii)**
