@@ -1,0 +1,4 @@
+#ddev-generated
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  cd /var/www/html
+fi
