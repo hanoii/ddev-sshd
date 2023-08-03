@@ -14,8 +14,6 @@ Host ${DDEV_HOSTNAME%%,*}
   Hostname localhost
   Port ${port#*:}
   StrictHostKeyChecking=no
-  RequestTTY yes
-  RemoteCommand cd /var/www/html; \$SHELL -il
 SSH_CONFIG
 )
 
