@@ -5,7 +5,7 @@
 For now, I won't be providing releases, please install with 
 
 ```
-ddev get https://github.com/hanoii/ddev-sshd/tarball/main`
+ddev get https://github.com/hanoii/ddev-sshd/tarball/main
 ```
 
 This adds an ssh server to the container. If `ddev auth ssh` has previously been
