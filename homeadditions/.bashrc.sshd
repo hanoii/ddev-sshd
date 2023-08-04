@@ -2,3 +2,6 @@
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
   cd /var/www/html
 fi
+
+# This sets up path and other ddev goodies close to 'ddev ssh'
+source /etc/bashrc/commandline-addons.bashrc
