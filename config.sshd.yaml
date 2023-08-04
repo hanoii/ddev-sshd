@@ -6,4 +6,4 @@ web_extra_daemons:
     directory: "/run/sshd"
 hooks:
   post-start:
-    - exec: ssh-add -L >> ~/.ssh/authorized_keys
+    - exec: ssh-add -L 2>&1 > /dev/null && ssh-add -L >> ~/.ssh/authorized_keys
