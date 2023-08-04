@@ -2,7 +2,9 @@
 
 # ddev-sshd <!-- omit in toc -->
 
-## What is ddev-sshd?
+For now, I won't be providing releases, please install with 
+
+`ddev get https://github.com/hanoii/ddev-sshd/tarball/main`
 
 This adds an ssh server to the container. If `ddev auth ssh` has previously been
 run, it will export your local keys as authorized keys so you can ssh into the 

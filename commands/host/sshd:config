@@ -4,6 +4,7 @@
 ## Description: Configures your local ssh config tu connect to this project. You can add this to a post-start/exec-host hook.
 ## Usage: sshd:config
 ## Example: ddev sshd:config
+## Flags: [{"Name":"dry-run", "Shorthand":"n", "Usage":"Do nothing and output the config"}]
 
 port=$(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml port web 22)
 
@@ -14,8 +15,14 @@ Host ${DDEV_HOSTNAME%%,*}
   Hostname localhost
   Port ${port#*:}
   StrictHostKeyChecking=no
+  UserKnownHostsFile=/dev/null
 SSH_CONFIG
 )
+
+if [[ "$@" == *"-n"* ]] || [[ "$@" == *"--dry-run"* ]]; then
+  echo "$config"
+  exit 0
+fi
 
 if ! grep -qxF "Include \"config.ddev.d/$config_filename\"" ~/.ssh/config ; then
   echo -e "\n# Added by ddev-sshd add-on on $(date -u "+%Y-%m-%d %H:%m") \nInclude \"config.ddev.d/$config_filename\"" >> ~/.ssh/config
