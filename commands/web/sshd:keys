@@ -13,4 +13,4 @@ if [ $? -ne 0 ]; then
 fi
 
 ssh-add -L >> ~/.ssh/authorized_keys
-echo -e "\033[0;32m✔ SSH public keys added to ~/.ssh/authorized_keys\033[0m"
+echo -e "\033[0;32m✔ SSH public keys added to ~/.ssh/authorized_keys inside the web container.\033[0m"
