@@ -8,6 +8,8 @@
 
 port=$(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml port web 22)
 
+# The following template creates the proper string for SetEnv
+# It also removes TERM= so that the proper terminal can be sent through ssh
 go_template=$(
 cat <<GO_TEMPLATE
 {{- range .Config.Env -}}
