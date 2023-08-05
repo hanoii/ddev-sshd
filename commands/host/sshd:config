@@ -52,4 +52,8 @@ if ! grep -qxF "Include \"config.ddev.d/$config_filename\"" ~/.ssh/config ; then
 fi
 
 mkdir -p ~/.ssh/config.ddev.d
-echo "$config" > ~/.ssh/config.ddev.d/$config_filename
+if [ ! -f ~/.ssh/config.ddev.d/$config_filename ] || grep "#ddev-generated" ~/.ssh/config.ddev.d/$config_filename > /dev/null; then
+  echo "$config" > ~/.ssh/config.ddev.d/$config_filename
+else
+  echo -e "\033[0;33m[warning] #ddev-generated was removed from ~/.ssh/config.ddev.d/$config_filename so it will not be overwritten. If you need to reset it, remove that file and run 'ddev sshd:config'\033[0m"
+fi
