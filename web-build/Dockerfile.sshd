@@ -5,3 +5,4 @@
 RUN sed -i '1 i [ -f ~/.bashrc.sshd ] && source ~/.bashrc.sshd' /home/$username/.bashrc
 # Needed for ssh to run as an extra daemon
 RUN mkdir /run/sshd
+ADD ddev-sshd.conf /etc/ssh/sshd_config.d

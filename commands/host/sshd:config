@@ -8,6 +8,9 @@
 
 port=$(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml port web 22)
 
+# docker inspect $(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml ps web -q) --format '{{ range .Config.Env }}{{ $length := len . }}{{ if ge $length 4 }}{{ slice . 0 5 }}{{end}} {{end}}'
+setenv=$(docker inspect $(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml ps web -q) --format '{{ join .Config.Env " " }}')
+
 config_filename=$DDEV_PROJECT
 config=$(
 cat <<SSH_CONFIG
@@ -17,6 +20,8 @@ Host ${DDEV_HOSTNAME%%,*}
   Port ${port#*:}
   StrictHostKeyChecking=no
   UserKnownHostsFile=/dev/null
+  RequestTTY yes
+  SetEnv $setenv
 SSH_CONFIG
 )
 
