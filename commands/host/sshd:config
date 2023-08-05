@@ -8,8 +8,23 @@
 
 port=$(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml port web 22)
 
-# docker inspect $(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml ps web -q) --format '{{ range .Config.Env }}{{ $length := len . }}{{ if ge $length 4 }}{{ slice . 0 5 }}{{end}} {{end}}'
-setenv=$(docker inspect $(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml ps web -q) --format '{{ join .Config.Env " " }}')
+go_template=$(
+cat <<GO_TEMPLATE
+{{- range .Config.Env -}}
+  {{- \$length := len . -}}
+  {{- if ge \$length 4 -}}
+    {{- \$text := slice . 0 5 -}}
+    {{- if ne \$text "TERM=" -}}
+      {{ . }}{{ " " }}
+    {{- end -}}
+  {{- else -}}
+    {{ . }}{{ " " }}
+  {{- end -}}
+{{- end -}}
+GO_TEMPLATE
+)
+
+setenv=$(docker inspect $(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml ps web -q) --format "$go_template")
 
 config_filename=$DDEV_PROJECT
 config=$(
