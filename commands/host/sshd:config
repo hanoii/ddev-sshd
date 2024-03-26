@@ -17,10 +17,10 @@ cat <<GO_TEMPLATE
   {{- if ge \$length 4 -}}
     {{- \$text := slice . 0 5 -}}
     {{- if ne \$text "TERM=" -}}
-      {{ . }}{{ " " }}
+      {{ index (split . "=") 0 }}={{ index (split . "=") 1 | printf "%q" }}{{ " " }}
     {{- end -}}
   {{- else -}}
-    {{ . }}{{ " " }}
+    {{ index (split . "=") 0 }}={{ index (split . "=") 1 | printf "%q" }}{{ " " }}
   {{- end -}}
 {{- end -}}
 GO_TEMPLATE
