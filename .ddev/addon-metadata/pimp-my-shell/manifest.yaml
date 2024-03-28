@@ -1,0 +1,18 @@
+name: pimp-my-shell
+repository: https://github.com/hanoii/ddev-pimp-my-shell/tarball/main
+version: ""
+install_date: "2024-03-28T13:16:05-03:00"
+project_files:
+    - web-build/Dockerfile.pimp-my-shell
+    - homeadditions/.bashrc.d/pimp-my-shell.sh
+    - config.pimp-my-shell.yaml
+    - commands/web/ahoy
+    - commands/web/gum
+    - homeadditions/.local/share/bash-completion/completions/ahoy
+    - homeadditions/.config/starship.toml
+    - pimp-my-shell/hooks/README.md
+    - pimp-my-shell/hooks/post-import-db.sh
+    - pimp-my-shell/hooks/post-import-db.d
+    - pimp-my-shell/scripts/drush-uli.sh
+global_files: []
+removal_actions: []

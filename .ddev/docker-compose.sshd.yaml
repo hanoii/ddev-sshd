@@ -1,0 +1,5 @@
+#ddev-generated
+services:
+  web:
+    ports:
+      - "22"

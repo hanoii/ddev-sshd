@@ -1,0 +1,14 @@
+name: sshd
+repository: .
+version: ""
+install_date: "2024-03-28T13:15:50-03:00"
+project_files:
+    - config.sshd.yaml
+    - docker-compose.sshd.yaml
+    - web-build/Dockerfile.sshd
+    - web-build/ddev-sshd.conf
+    - commands/host/sshd:config
+    - commands/web/sshd:keys
+    - homeadditions/.bashrc.sshd
+global_files: []
+removal_actions: []

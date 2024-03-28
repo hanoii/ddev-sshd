@@ -1,0 +1,9 @@
+#ddev-generated
+webimage_extra_packages: [ssh]
+web_extra_daemons:
+  - name: "ssh"
+    command: "sudo /usr/sbin/sshd -D"
+    directory: "/run/sshd"
+hooks:
+  post-start:
+    - exec-host: ddev sshd:keys

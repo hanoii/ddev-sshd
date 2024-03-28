@@ -1,0 +1,59 @@
+#!/bin/bash
+
+## #ddev-generated
+## Description: Configures your local ssh config tu connect to this project. You can add this to a post-start/exec-host hook.
+## Usage: sshd:config
+## Example: ddev sshd:config
+## Flags: [{"Name":"dry-run", "Shorthand":"n", "Usage":"Do nothing and output the config"}]
+
+port=$(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml port web 22)
+
+# The following template creates the proper string for SetEnv
+# It also removes TERM= so that the proper terminal can be sent through ssh
+go_template=$(
+cat <<GO_TEMPLATE
+{{- range .Config.Env -}}
+  {{- \$length := len . -}}
+  {{- if ge \$length 4 -}}
+    {{- \$text := slice . 0 5 -}}
+    {{- if ne \$text "TERM=" -}}
+      {{ index (split . "=") 0 }}={{ index (split . "=") 1 | printf "%q" }}{{ " " }}
+    {{- end -}}
+  {{- else -}}
+    {{ index (split . "=") 0 }}={{ index (split . "=") 1 | printf "%q" }}{{ " " }}
+  {{- end -}}
+{{- end -}}
+GO_TEMPLATE
+)
+
+setenv=$(docker inspect $(~/.ddev/bin/docker-compose -f .ddev/.ddev-docker-compose-full.yaml ps web -q) --format "$go_template")
+
+config_filename=$DDEV_PROJECT
+config=$(
+cat <<SSH_CONFIG
+#ddev-generated
+Host ${DDEV_HOSTNAME%%,*}
+  Hostname localhost
+  Port ${port#*:}
+  StrictHostKeyChecking=no
+  UserKnownHostsFile=/dev/null
+  RequestTTY yes
+  SetEnv $setenv
+SSH_CONFIG
+)
+
+if [[ "$@" == *"-n"* ]] || [[ "$@" == *"--dry-run"* ]]; then
+  echo "$config"
+  exit 0
+fi
+
+if ! grep -qxF "Include \"config.ddev.d/$config_filename\"" ~/.ssh/config ; then
+  echo -e "\n# Added by ddev-sshd add-on on $(date -u "+%Y-%m-%d %H:%m") \nInclude \"config.ddev.d/$config_filename\"" >> ~/.ssh/config
+fi
+
+mkdir -p ~/.ssh/config.ddev.d
+if [ ! -f ~/.ssh/config.ddev.d/$config_filename ] || grep "#ddev-generated" ~/.ssh/config.ddev.d/$config_filename > /dev/null; then
+  echo "$config" > ~/.ssh/config.ddev.d/$config_filename
+else
+  echo -e "\033[0;33m[warning] #ddev-generated was removed from ~/.ssh/config.ddev.d/$config_filename so it will not be overwritten. If you need to reset it, remove that file and run 'ddev sshd:config'\033[0m"
+fi

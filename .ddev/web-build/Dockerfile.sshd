@@ -1,0 +1,8 @@
+#ddev-generated
+
+# This is so that both 'ssh host' and 'ssh host cmd' are run from within the
+# project root, same as 'ddev ssh' and 'ddev exec cmd'
+RUN sed -i '1 i [ -f ~/.bashrc.sshd ] && source ~/.bashrc.sshd' /home/$username/.bashrc
+# Needed for ssh to run as an extra daemon
+RUN mkdir /run/sshd
+ADD ddev-sshd.conf /etc/ssh/sshd_config.d

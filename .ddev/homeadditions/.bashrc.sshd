@@ -1,0 +1,9 @@
+#ddev-generated
+
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  cd /var/www/html
+
+  # This sets up path and other ddev goodies close to 'ddev ssh' and
+  # 'ddev exec cmd'
+  [[ ! -z "$BASH_ENV" ]] && source $BASH_ENV
+fi

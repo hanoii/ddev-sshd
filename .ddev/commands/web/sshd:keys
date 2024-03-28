@@ -1,0 +1,16 @@
+#!/bin/bash
+
+## #ddev-generated
+## Description: Adds your local keys as authorized keys. `ddev auth ssh` must be run first.
+## Usage: sshd:keys
+## Example: ddev sshd:keys
+## ExecRaw: true
+
+keys=$(ssh-add -L)
+if [ $? -ne 0 ]; then
+  echo -e "\033[0;33m[warning] No ssh keys found on agent, please run 'ddev auth ssh' to provide key authentication and run 'ddev sshd:keys' again.\033[0m"
+  exit 0
+fi
+
+ssh-add -L >> ~/.ssh/authorized_keys
+echo -e "\033[0;32m✔ SSH public keys added to ~/.ssh/authorized_keys inside the web container.\033[0m"
