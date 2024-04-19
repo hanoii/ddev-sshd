@@ -5,5 +5,5 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
 
   # This sets up path and other ddev goodies close to 'ddev ssh' and
   # 'ddev exec cmd'
-  [[ ! -z "$BASH_ENV" ]] && source $BASH_ENV
+  [[ ! $- == *i* ]] && [[ ! -z "$BASH_ENV" ]] && source $BASH_ENV
 fi
