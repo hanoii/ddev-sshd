@@ -1,0 +1,15 @@
+name: readme
+repository: https://github.com/hanoii/ddev-readme/tarball/main
+version: ""
+install_date: "2024-04-26T13:43:00-03:00"
+project_files:
+    - web-build/Dockerfile.readme
+    - readme/.gitignore
+    - readme/watch.cjs
+    - readme/.prettierrc
+    - readme/build.sh
+    - readme/.ahoy.readme.yml
+    - web-build/Dockerfile.readme
+    - config.readme.yaml
+global_files: []
+removal_actions: []
