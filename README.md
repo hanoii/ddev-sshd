@@ -1,4 +1,4 @@
-[![tests](https://github.com/ddev/ddev-addon-template/actions/workflows/tests.yml/badge.svg)](https://github.com/ddev/ddev-addon-template/actions/workflows/tests.yml)
+[![tests](https://github.com/hanoii/ddev-sshd/actions/workflows/tests.yml/badge.svg)](https://github.com/hanoii/ddev-sshd/actions/workflows/tests.yml)
 ![project is maintained](https://img.shields.io/maintenance/yes/2024.svg)
 
 # ddev-sshd <!-- omit in toc -->
