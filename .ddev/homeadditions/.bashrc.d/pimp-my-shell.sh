@@ -1,16 +1,16 @@
 #ddev-generated
 
+# Path
+export PATH=~/.bun/bin:~/.local/bin:$PATH:/usr/games
+
+# This is so that child processes have appropriate access to this var
+export SHELL
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
-
-# Path
-export PATH=$PATH:/usr/games
-
-# This is so that child processes have appropriate access to this var
-export SHELL
 
 # ahoy
 COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
@@ -45,3 +45,8 @@ function set_win_title(){
 starship_precmd_user_func="set_win_title"
 trap "set_win_title \"\${BASH_COMMAND} - \"" DEBUG
 eval "$(starship init bash)"
+
+# eza aliases to ls
+# https://gist.github.com/AppleBoiy/04a249b6f64fd0fe1744aff759a0563b
+alias ls='eza --color=always --group-directories-first --icons'
+alias ll='eza -la --icons --octal-permissions --group-directories-first'
