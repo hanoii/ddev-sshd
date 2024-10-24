@@ -36,15 +36,23 @@ hooks:
 
 If you are courious on what the command will add, try
 
-```
+```sh
 ddev sshd:config --dry-run
 ```
 
 ## Install the dev version
 
-You can always install the latest code with
+You can always install the latest code:
 
+For DDEV v1.23.5 or above run
+
+```sh
+ddev add-on get https://github.com/hanoii/ddev-sshd/tarball/main
 ```
+
+For earlier versions of DDEV run
+
+```sh
 ddev get https://github.com/hanoii/ddev-sshd/tarball/main
 ```
 
