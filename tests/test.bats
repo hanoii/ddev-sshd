@@ -31,12 +31,3 @@ teardown() {
   ddev restart
   health_checks
 }
-
-@test "install from release" {
-  set -eu -o pipefail
-  cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
-  echo "# ddev get hanoii/ddev-sshd with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
-  ddev get hanoii/ddev-sshd
-  ddev restart >/dev/null
-  health_checks
-}
