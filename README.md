@@ -1,5 +1,5 @@
 [![tests](https://github.com/hanoii/ddev-sshd/actions/workflows/tests.yml/badge.svg)](https://github.com/hanoii/ddev-sshd/actions/workflows/tests.yml)
-![project is maintained](https://img.shields.io/maintenance/yes/2024.svg)
+![project is maintained](https://img.shields.io/maintenance/yes/2025.svg)
 
 # ddev-sshd <!-- omit in toc -->
 
@@ -44,16 +44,8 @@ ddev sshd:config --dry-run
 
 You can always install the latest code:
 
-For DDEV v1.23.5 or above run
-
 ```sh
 ddev add-on get https://github.com/hanoii/ddev-sshd/tarball/main
-```
-
-For earlier versions of DDEV run
-
-```sh
-ddev get https://github.com/hanoii/ddev-sshd/tarball/main
 ```
 
 **Contributed and maintained by [@hanoii](https://github.com/hanoii)**
