@@ -34,7 +34,7 @@ hooks:
     - exec-host: ddev sshd:config
 ```
 
-If you are courious on what the command will add, try
+If you are curious on what the command will add, try
 
 ```sh
 ddev sshd:config --dry-run
