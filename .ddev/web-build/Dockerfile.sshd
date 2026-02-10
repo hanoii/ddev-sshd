@@ -4,5 +4,6 @@
 # project root, same as 'ddev ssh' and 'ddev exec cmd'
 RUN sed -i '1 i [ -f ~/.bashrc.sshd ] && source ~/.bashrc.sshd' /home/$username/.bashrc
 # Needed for ssh to run as an extra daemon
-RUN mkdir /run/sshd
+# SSH daemon requires /run/sshd to be owned by root with mode 0755
+RUN mkdir -p /run/sshd && chmod 755 /run/sshd && chown root:root /run/sshd
 ADD ddev-sshd.conf /etc/ssh/sshd_config.d
