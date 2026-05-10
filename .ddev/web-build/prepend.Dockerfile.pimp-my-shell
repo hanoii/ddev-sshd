@@ -25,7 +25,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-starship
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-STARSHIP_VERSION=1.24.2
+STARSHIP_VERSION=1.25.1
 AARCH=$(uname -m)
 AARCH=${AARCH/i386/i686}
 curl-pimp-my-shell -o starship.tar.gz https://github.com/starship/starship/releases/download/v${STARSHIP_VERSION}/starship-${AARCH}-unknown-linux-musl.tar.gz
@@ -52,7 +52,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-fzf
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-FZF_VERSION=0.67.0
+FZF_VERSION=0.72.0
 AARCH=$(uname -m)
 AARCH=${AARCH/aarch64/arm64}
 AARCH=${AARCH/x86_64/amd64}
@@ -65,7 +65,7 @@ EOF
 FROM pimp-my-shell-base AS pimp-my-shell-fzfgit
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
-FZFGIT_SHA1=34cd6c9d315d9b59b94721bd602c5769e919d686
+FZFGIT_SHA1=0f0488331a060cf45aaecb6705a2cf394fb20293
 curl-pimp-my-shell -o fzf-git-sh.tar.gz https://github.com/junegunn/fzf-git.sh/archive/${FZFGIT_SHA1}.tar.gz
 tar -zxf fzf-git-sh.tar.gz --strip-components=1 -C /opt
 rm fzf-git-sh.tar.gz
@@ -96,7 +96,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-fish
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-FISH_VERSION=4.3.3-2
+FISH_VERSION=4.6.0-1
 DEBIAN=$(lsb_release -rs)
 echo "deb http://download.opensuse.org/repositories/shells:/fish:/release:/4/Debian_${DEBIAN}/ /" | sudo tee /etc/apt/sources.list.d/shells:fish:release:4.list
 curl-pimp-my-shell -sS https://download.opensuse.org/repositories/shells:fish:release:4/Debian_${DEBIAN}/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/shells_fish_release_4.gpg > /dev/null
@@ -135,12 +135,12 @@ FROM pimp-my-shell-base AS pimp-my-shell-zlua
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-ZLUA_VERSION=1.8.24
+ZLUA_VERSION=v1.8.25
 mkdir -p /opt/z.lua
 cd /opt/z.lua
 curl-pimp-my-shell -o zlua.zip https://github.com/skywind3000/z.lua/archive/refs/tags/${ZLUA_VERSION}.zip
 unzip zlua.zip
-mv z.lua-${ZLUA_VERSION} z.lua
+mv z.lua-${ZLUA_VERSION#v} z.lua
 rm zlua.zip
 EOF
 
@@ -149,7 +149,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-xterm-kitty
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-KITTY_VERSION=0.45.0
+KITTY_VERSION=0.46.2
 mkdir -p /opt/kitty
 curl-pimp-my-shell -o kitty.tar.gz https://github.com/kovidgoyal/kitty/archive/v${KITTY_VERSION}.tar.gz
 tar -zxf kitty.tar.gz --strip-components=1 -C /opt/kitty
@@ -161,7 +161,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-go
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-GO_VERSION=1.25.7
+GO_VERSION=1.26.2
 AARCH=$(uname -m)
 AARCH=${AARCH/aarch64/arm64}
 AARCH=${AARCH/x86_64/amd64}
@@ -187,7 +187,7 @@ FROM pimp-my-shell-go AS pimp-my-shell-go-recur
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-RECUR_VERSION=3.1.0
+RECUR_VERSION=3.2.0
 RECUR_MAJOR_VERSION=$(echo ${RECUR_VERSION} | cut -d. -f1)
 /usr/local/go/bin/go install dbohdan.com/recur/v${RECUR_MAJOR_VERSION}@v${RECUR_VERSION}
 /usr/local/go/bin/go clean -cache -modcache
@@ -213,7 +213,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-fd
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-FD_VERSION=10.3.0
+FD_VERSION=10.4.2
 AARCH=$(uname -m)
 AARCH=${AARCH/i386/i686}
 curl-pimp-my-shell -o fd.tar.gz https://github.com/sharkdp/fd/releases/download/v${FD_VERSION}/fd-v${FD_VERSION}-${AARCH}-unknown-linux-musl.tar.gz
@@ -239,7 +239,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-rust
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-RUST_VERSION=1.93.0
+RUST_VERSION=1.95.0
 curl-pimp-my-shell -sS https://sh.rustup.rs/ | sh -s -- --profile minimal --default-toolchain=${RUST_VERSION} -y
 EOF
 
@@ -248,7 +248,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-lazygit
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-LAZYGIT_VERSION=0.58.1
+LAZYGIT_VERSION=0.61.1
 AARCH=$(uname -m)
 AARCH=${AARCH/aarch64/arm64}
 AARCH=${AARCH/i386/32-bit}
@@ -263,7 +263,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-ov
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-OV_VERSION=0.50.2
+OV_VERSION=0.52.0
 AARCH=$(uname -m)
 AARCH=${AARCH/aarch64/arm64}
 AARCH=${AARCH/x86_64/amd64}
@@ -279,7 +279,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-bun
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-BUN_VERSION=1.3.8
+BUN_VERSION=1.3.13
 curl-pimp-my-shell -sS https://bun.sh/install | bash -s "bun-v${BUN_VERSION}"
 cd /root/.bun/bin
 ln -fs bun bunx
@@ -290,7 +290,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-gh
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-GH_VERSION=2.86.0
+GH_VERSION=2.92.0
 AARCH=$(uname -m)
 AARCH=${AARCH/aarch64/arm64}
 AARCH=${AARCH/x86_64/amd64}
@@ -306,7 +306,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-delta
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-DELTA_VERSION=0.18.2
+DELTA_VERSION=0.19.2
 AARCH=$(uname -m)
 curl-pimp-my-shell -o delta.tar.gz https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/delta-${DELTA_VERSION}-${AARCH}-unknown-linux-gnu.tar.gz
 tar -zxf delta.tar.gz --strip-components=1 -C /opt
@@ -368,7 +368,7 @@ FROM pimp-my-shell-base AS pimp-my-shell-doctl
 SHELL ["/bin/bash", "-c"]
 RUN <<EOF
 set -eux
-DOCTL_VERSION=1.150.0
+DOCTL_VERSION=1.157.0
 AARCH=$(uname -m)
 AARCH=${AARCH/aarch64/arm64}
 AARCH=${AARCH/x86_64/amd64}
