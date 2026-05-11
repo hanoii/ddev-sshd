@@ -48,7 +48,7 @@ if [[ "$@" == *"-n"* ]] || [[ "$@" == *"--dry-run"* ]]; then
 fi
 
 if ! grep -qxF "Include \"config.ddev.d/*\"" ~/.ssh/config ; then
-  echo -e "\n# Added by ddev-sshd add-on on $(date -u "+%Y-%m-%d %H:%m") \nInclude \"config.ddev.d/*\"\n" >> ~/.ssh/config
+  echo -e "\n# Added by ddev-sshd add-on on $(date -u "+%Y-%m-%d %H:%m") \nInclude \"config.ddev.d/*\"" >> ~/.ssh/config
 fi
 
 mkdir -p ~/.ssh/config.ddev.d
